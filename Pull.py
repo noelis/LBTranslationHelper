@@ -10,16 +10,12 @@ from requests.auth import HTTPBasicAuth
 email = "email@rd.io" # Use the Rdio emial address associated with your Desk account
 password = "password" # Use your Desk account password
 
-date = "2000-02"
-file_name = "our_file"
-topic = "27647"
-
-
-
+date = "2000-02" # Change date
+file_name = "our_file" # Change filename
+topic = "27647" # Change topic
 
 response = requests.get('https://rdio.desk.com/api/v2/topics/%s/articles' % topic, auth=HTTPBasicAuth(email, password))
 data = json.loads(response.content)
-
 
 print "# of entries is: %s" % (data['total_entries'])
 embedded = data['_embedded']

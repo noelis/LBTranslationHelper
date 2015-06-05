@@ -15,7 +15,7 @@ password = "password" # Use your Desk account password
 zip_dir = "lionstuff"
 file_name = "Support Translations.txt"
 
-langauge_map = {
+language_map = {
   'cs-cz' : 'cs',
   'da-dk' : 'da',
   'de-ch' : 'de_ch',
@@ -38,7 +38,7 @@ langauge_map = {
 }
 
 
-# acrticle id    0
+# article id    0
 # name           1
 # white line     2 - ....  ?? N
 # stuffffffff for body
@@ -68,8 +68,8 @@ def update_translation(desk_lang, chunk):
   if response.status_code != 200:
     print " >>> %s" % response
 
-for lion_lang in langauge_map:
-  desk_lang = langauge_map[lion_lang]
+for lion_lang in language_map:
+  desk_lang = language_map[lion_lang]
   print "Handling %s -> %s " % (lion_lang, desk_lang)
   f = open('%s/%s/%s' % (zip_dir, lion_lang, file_name))
   chunk = []
