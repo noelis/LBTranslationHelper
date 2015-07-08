@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import json
 import requests
@@ -8,12 +8,16 @@ from requests.auth import HTTPBasicAuth
 
 
 # change these when you run the script!
-email = "email@rd.io" # Use the Rdio emial address associated with your Desk account
-password = "password" # Use your Desk account password
+#email = "email@rd.io"
+#password = "Desk Password"
+email = raw_input('Enter your Desk email: ')
+password = raw_input('Enter your password: ')
 
 # REMENBER!! : the zipped files need to live next to the script (same directory)
-zip_dir = "lionstuff"
-file_name = "Support Translations.txt"
+#zip_dir = "emily"
+#file_name = "HelpArticles-June2015.txt"
+zip_dir = raw_input('What is the name of the folder of the unzipped translations? ')
+file_name = raw_input('What is the name of the .txt file inside the folder? (Include .txt in the name.)')
 
 language_map = {
   'cs-cz' : 'cs',
@@ -38,18 +42,19 @@ language_map = {
 }
 
 
-# article id    0
+# acrticle id    0
 # name           1
 # white line     2 - ....  ?? N
 # stuffffffff for body
-# ____________________________
+# ==============================
 def update_translation(desk_lang, chunk):
   id = chunk[0].strip()
   subject = chunk[1].strip()
   payload = {
     "locale": desk_lang,
     "subject": subject,
-    "body": "\n".join(chunk[2:])
+    "body": "\n".join(chunk[2:]),
+    "publish_at": "2015-07-04T22:28:53Z"
   }
 
   print " > processing [%s] %s" % (id, subject)
@@ -74,7 +79,7 @@ for lion_lang in language_map:
   f = open('%s/%s/%s' % (zip_dir, lion_lang, file_name))
   chunk = []
   for line in f:
-    if line.startswith("_____"):
+    if line.startswith("========="):
       update_translation(desk_lang, chunk)
       chunk = []
     else:

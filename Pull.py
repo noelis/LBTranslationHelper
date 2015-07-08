@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import json
 import requests
@@ -7,15 +7,24 @@ import time
 from requests.auth import HTTPBasicAuth
 
 # change these when you run the script!
-email = "email@rd.io" # Use the Rdio emial address associated with your Desk account
-password = "password" # Use your Desk account password
+#email = "email@rd.io"
+#password = "Desk Password"
+email = raw_input('Enter your Desk email: ')
+password = raw_input('Enter your password: ')
 
-date = "2000-02" # Change date
-file_name = "our_file" # Change filename
-topic = "27647" # Change topic
+#date = "2000-02"
+#file_name = "our_file"
+#topic = "27647"
+date = raw_input('Pull articles starting from what date? (Please write in this format: YYYY-MM)')
+file_name = raw_input(' Enter a file name for these translations:')
+topic = raw_input('What is the article topic id number? You can find this in Admin > Content > Topic (like Getting Started) , the ID is located in the URL. ')
+
+
+
 
 response = requests.get('https://rdio.desk.com/api/v2/topics/%s/articles' % topic, auth=HTTPBasicAuth(email, password))
 data = json.loads(response.content)
+
 
 print "# of entries is: %s" % (data['total_entries'])
 embedded = data['_embedded']
@@ -36,4 +45,4 @@ for entry in entries:
     # print "subject: %s \t update: %s" % (x['subject'], x['updated_at'])
 
 
-print "yoooooo omg1!! we shut pooped out %s in %s" % (expored, file_name)
+print "yoooooo omg!! we shut pooped out %s in %s" % (expored, file_name)
